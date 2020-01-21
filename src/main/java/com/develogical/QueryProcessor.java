@@ -31,6 +31,10 @@ public class QueryProcessor {
         String csv = rawQuery.split(":")[1];
         String[] numberStrs = csv.split(",");
         int[] numbers = new int[numberStrs.length];
+        for (int i = 0; i < numberStrs.length; i++) {
+            numbers[i] = Integer.parseInt(numberStrs[i]);
+        }
+        
         int largest = numbers[0];
         for (int i : numbers) {
             largest = Math.max(i, largest);

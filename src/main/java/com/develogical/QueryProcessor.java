@@ -26,7 +26,9 @@ public class QueryProcessor {
         } else if (query.contains("which of the following numbers is the largest")) {
             response =  processLargestNumber(rawQuery);
         } else if (containsAllWords(query, Arrays.asList("what", "is", "plus"))) {
-            response =  handlePlus(query);
+            response = handlePlus(query);
+        } else if (containsAllWords(query, Arrays.asList("square", "cube"))) {
+            response =  handleSquareAndCube(query);
         } else if (containsAllWords(query, Arrays.asList("what", "is", "multiply"))) {
             response =  handleMultiply(query);
         } else if (containsAllWords(query, Arrays.asList("what", "is", "minus"))) {
@@ -53,6 +55,25 @@ public class QueryProcessor {
             largest = Math.max(i, largest);
         }
         return String.valueOf(largest);
+    }
+
+    private String handleSquareAndCube(String rawQuery) {
+        String csv = rawQuery.split(":")[2].trim();
+        csv = csv.replaceAll("\\s+","");
+        String[] numberStrs = csv.split(",");
+        int[] numbers = new int[numberStrs.length];
+        for (int i = 0; i < numberStrs.length; i++) {
+            numbers[i] = Integer.parseInt(numberStrs[i]);
+        }
+
+        for (int i : numbers) {
+            double sq = Math.pow(i, 1.0/2);
+            double cu = Math.pow(i, 1.0/3);
+            if (sq - Math.floor(sq) == 0 && cu - Math.floor(cu) == 0) {
+                return String.valueOf(i);
+            }
+        }
+        return "";
     }
 
     private String handlePlus(String query) {

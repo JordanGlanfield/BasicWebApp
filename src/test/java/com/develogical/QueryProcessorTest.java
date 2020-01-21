@@ -34,4 +34,9 @@ public class QueryProcessorTest {
     public void knowsAboutTeamName() {
         assertThat(queryProcessor.process("what is your team name"), containsString("banterwagon"));
     }
+
+    @Test
+    public void knowsAboutTeamName() {
+        assertThat(queryProcessor.process("which of the following numbers is the largest: 90, 94, 871, 425"), containsString("871"));
+    }
 }

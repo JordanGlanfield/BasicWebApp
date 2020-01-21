@@ -16,7 +16,20 @@ public class QueryProcessor {
                     "\"there was much good-natured banter\"";
         } else if (query.contains("what") && query.contains("is") && query.contains("your") && query.contains("team")) {
             return "Our team name is banterwagon";
+        } else if (query.contains("which of the following numbers is the largest")) {
+            return processLargestNumber(rawQuery);
         }
         return "";
+    }
+
+    private String processLargestNumber(String rawQuery) {
+        String csv = rawQuery.split(":")[1];
+        String[] numberStrs = csv.split(",");
+        int[] numbers = new int[numberStrs.length];
+        int largest = numbers[0];
+        for (int i : numbers) {
+            largest = Math.max(i, largest);
+        }
+        return String.valueOf(largest);
     }
 }

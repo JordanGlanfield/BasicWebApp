@@ -42,6 +42,6 @@ public class QueryProcessorTest {
     
     @Test
     public void canAddNumbers() {
-        assertThat(queryProcessor.process("what is 5 plus 10"), containsString("15"));
+        assertThat(queryProcessor.process("abdgrsgd: what is 5 plus 10"), containsString("15"));
     }
 }

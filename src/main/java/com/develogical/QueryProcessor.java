@@ -12,23 +12,31 @@ public class QueryProcessor {
 
         System.out.println("Query received: '" + rawQuery + "'");
 
+        String response = "";
+
         if (query.contains("shakespeare")) {
-            return "William Shakespeare (26 April 1564 - 23 April 1616) was an " +
+            response = "William Shakespeare (26 April 1564 - 23 April 1616) was an " +
                     "English poet, playwright, and actor, widely regarded as the greatest " +
                     "writer in the English language and the world's pre-eminent dramatist.";
         } else if (query.contains("banter")) {
-            return "the playful and friendly exchange of teasing remarks.\n" +
+            response =  "the playful and friendly exchange of teasing remarks.\n" +
                     "\"there was much good-natured banter\"";
         } else if (query.contains("what") && query.contains("is") && query.contains("your") && query.contains("team")) {
-            return "Our team name is banterwagon";
+            response =  "Our team name is banterwagon";
         } else if (query.contains("which of the following numbers is the largest")) {
-            return processLargestNumber(rawQuery);
+            response =  processLargestNumber(rawQuery);
         } else if (containsAllWords(query, Arrays.asList("what", "is", "plus"))) {
-            return handlePlus(query);
+            response =  handlePlus(query);
         } else if (containsAllWords(query, Arrays.asList("what", "is", "multiply"))) {
-            return handleMultiply(query);
+            response =  handleMultiply(query);
+        } else if (containsAllWords(query, Arrays.asList("what", "is", "minus"))) {
+            response = handleMinus(query);
         }
-        return "";
+
+        System.out.println("Response is...");
+        System.out.println(response);
+
+        return response;
     }
 
     private String processLargestNumber(String rawQuery) {
@@ -62,6 +70,10 @@ public class QueryProcessor {
 
     private String handleMultiply(String query) {
         return handleBinop(query, "multiply", (x, y) -> x * y);
+    }
+
+    private String handleMinus(String query) {
+        return handleBinop(query, "minus", (x, y) -> x - y);
     }
 
     private String stripWhitespace(String string) {

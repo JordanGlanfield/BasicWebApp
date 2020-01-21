@@ -2,8 +2,7 @@ package com.develogical;
 
 import org.junit.Test;
 
-import static org.hamcrest.CoreMatchers.containsString;
-import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertThat;
 
 public class QueryProcessorTest {
@@ -47,6 +46,11 @@ public class QueryProcessorTest {
 
     @Test
     public void canMultiplyNumbers() {
-        assertThat(queryProcessor.process("sdafdasfd: what is 9 multiply 5"), containsString("45"));    
+        assertThat(queryProcessor.process("sdafdasfd: what is 9 multiply 5"), containsString("45"));
+    }
+
+    @Test
+    public void canMinusNumbers() {
+        assertThat(queryProcessor.process("dsfagads: what is 100 minus 13"), equalTo("87"));
     }
 }

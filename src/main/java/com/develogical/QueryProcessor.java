@@ -2,6 +2,8 @@ package com.develogical;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.BiFunction;
+import java.util.function.Function;
 
 public class QueryProcessor {
 
@@ -25,13 +27,15 @@ public class QueryProcessor {
             return handlePlus(query);
         }  else if (query.contains("which of the following numbers is both a square and a cube")) {
             return handleSquareAndCube(query);
+        } else if (containsAllWords(query, Arrays.asList("what", "is", "multiply"))) {
+            return handleMultiply(query);
         }
         return "";
     }
 
     private String processLargestNumber(String rawQuery) {
         String csv = rawQuery.split(":")[2].trim();
-        csv = csv.replaceAll("\\s+","");
+        csv = stripWhitespace(csv);
         String[] numberStrs = csv.split(",");
         int[] numbers = new int[numberStrs.length];
         for (int i = 0; i < numberStrs.length; i++) {
@@ -65,13 +69,33 @@ public class QueryProcessor {
     }
 
     private String handlePlus(String query) {
-        // what is
-        String substring = query.split(":")[1].trim().substring(8);
-        String[] arguments = substring.split(" plus ");
+        return handleBinop(query, "plus", Integer::sum);
+    }
 
-        String failed = "Couldn't do plus";
+    private boolean containsAllWords(String query, List<String> words) {
+        for (String word : words) {
+            if (!query.contains(word)) {
+                return false;
+            }
+        }
+        return true;
+    }
 
-        System.out.println("Handling plus!");
+    private String handleMultiply(String query) {
+        return handleBinop(query, "multiply", (x, y) -> x * y);
+    }
+
+    private String stripWhitespace(String string) {
+        return string.replaceAll("\\s+","");
+    }
+
+    private String handleBinop(String query, String keyword, BiFunction<Integer, Integer, Integer> op) {
+        String substring = stripWhitespace(query.split(":")[1].trim().substring(8));
+        String[] arguments = substring.split(keyword);
+
+        String failed = "Couldn't do " + keyword;
+
+        System.out.println("Handling " + keyword + "!");
 
         if (arguments.length != 2) {
             System.err.println("Invalid number of arguments to plus: " + arguments.length);
@@ -90,20 +114,10 @@ public class QueryProcessor {
             return failed;
         }
 
-
-        int result = x + y;
+        int result = op.apply(x, y);
 
         System.out.println("Result is " + result);
 
-        return "" + result;
-    }
-
-    private boolean containsAllWords(String query, List<String> words) {
-        for (String word : words) {
-            if (!query.contains(word)) {
-                return false;
-            }
-        }
-        return true;
+        return String.valueOf(result);
     }
 }

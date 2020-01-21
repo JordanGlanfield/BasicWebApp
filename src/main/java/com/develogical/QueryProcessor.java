@@ -33,6 +33,8 @@ public class QueryProcessor {
             response =  handleMultiply(query);
         } else if (containsAllWords(query, Arrays.asList("what", "is", "minus"))) {
             response = handleMinus(query);
+        } else if (containsAllWords(query, Arrays.asList("what", "is", "power"))) {
+            response = handleBinop(query, "tothepowerof", (x, y) -> (int) Math.pow(x, y));
         }
 
         System.out.println("Response is...");

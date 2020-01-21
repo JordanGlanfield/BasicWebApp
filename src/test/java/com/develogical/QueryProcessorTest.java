@@ -58,4 +58,9 @@ public class QueryProcessorTest {
     public void canMinusNumbers() {
         assertThat(queryProcessor.process("dsfagads: what is 100 minus 13"), equalTo("87"));
     }
+
+    @Test
+    public void canPower() {
+        assertThat(queryProcessor.process("21bb6820: what is 2 to the power of 3"), equalTo("8"));
+    }
 }

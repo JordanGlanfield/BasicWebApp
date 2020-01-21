@@ -39,6 +39,11 @@ public class QueryProcessorTest {
     public void canCheckLargestNumbers() {
         assertThat(queryProcessor.process("abfddfg: which of the following numbers is the largest: 90, 94, 871, 425"), containsString("871"));
     }
+
+    @Test
+    public void canCheckSquareAndCube() {
+        assertThat(queryProcessor.process("abfddfg: which of the following numbers is both a square and a cube: 319, 1, 2500, 26"), containsString("1"));
+    }
     
     @Test
     public void canAddNumbers() {

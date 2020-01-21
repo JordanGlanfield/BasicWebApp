@@ -19,10 +19,27 @@ public class QueryProcessor {
                     "\"there was much good-natured banter\"";
         } else if (query.contains("what") && query.contains("is") && query.contains("your") && query.contains("team")) {
             return "Our team name is banterwagon";
+        } else if (query.contains("which of the following numbers is the largest")) {
+            return processLargestNumber(rawQuery);
         } else if (containsAllWords(query, Arrays.asList("what", "is", "plus"))) {
             return handlePlus(query);
         }
         return "";
+    }
+
+    private String processLargestNumber(String rawQuery) {
+        String csv = rawQuery.split(":")[1];
+        String[] numberStrs = csv.split(",");
+        int[] numbers = new int[numberStrs.length];
+        for (int i = 0; i < numberStrs.length; i++) {
+            numbers[i] = Integer.parseInt(numberStrs[i]);
+        }
+        
+        int largest = numbers[0];
+        for (int i : numbers) {
+            largest = Math.max(i, largest);
+        }
+        return String.valueOf(largest);
     }
 
     private String handlePlus(String query) {

@@ -21,11 +21,11 @@ public class QueryProcessor {
                     "\"there was much good-natured banter\"";
         } else if (query.contains("what") && query.contains("is") && query.contains("your") && query.contains("team")) {
             return "Our team name is banterwagon";
-        } else if (query.contains("which of the following numbers is the largest")) {
+        } else if (containsAllWords(query, Arrays.asList("numbers", "largest"))) {
             return processLargestNumber(rawQuery);
         } else if (containsAllWords(query, Arrays.asList("what", "is", "plus"))) {
             return handlePlus(query);
-        }  else if (query.contains("which of the following numbers is both a square and a cube")) {
+        }  else if (containsAllWords(query, Arrays.asList("square", "cube"))) {
             return handleSquareAndCube(query);
         } else if (containsAllWords(query, Arrays.asList("what", "is", "multiply"))) {
             return handleMultiply(query);

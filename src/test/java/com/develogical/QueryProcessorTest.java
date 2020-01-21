@@ -63,4 +63,8 @@ public class QueryProcessorTest {
     public void canPower() {
         assertThat(queryProcessor.process("21bb6820: what is 2 to the power of 3"), equalTo("8"));
     }
+
+    public void canPlusManyNumbers() {
+        assertThat(queryProcessor.process("afdggfd: what is 5 plus 10 plus 9"), containsString("24"));
+    }
 }

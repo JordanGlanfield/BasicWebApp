@@ -27,7 +27,7 @@ public class QueryProcessor {
 
     private String handlePlus(String query) {
         // what is
-        String substring = query.substring(8);
+        String substring = query.split(":")[1].trim().substring(8);
         String[] arguments = substring.split(" plus ");
 
         String failed = "Couldn't do plus";

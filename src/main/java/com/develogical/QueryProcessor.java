@@ -1,5 +1,8 @@
 package com.develogical;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class QueryProcessor {
 
     public String process(String rawQuery) {
@@ -16,7 +19,45 @@ public class QueryProcessor {
                     "\"there was much good-natured banter\"";
         } else if (query.contains("what") && query.contains("is") && query.contains("your") && query.contains("team")) {
             return "Our team name is banterwagon";
+        } else if (containsAllWords(query, Arrays.asList("what", "is", "plus"))) {
+            return handlePlus(query);
         }
         return "";
+    }
+
+    private String handlePlus(String query) {
+        // what is
+        String substring = query.substring(8);
+        String[] arguments = substring.split(" plus ");
+
+        String failed = "Couldn't do plus";
+
+        if (arguments.length != 2) {
+            System.err.println("Invalid number of arguments to plus: " + arguments.length);
+            System.err.println("Arguments are: " + arguments.toString());
+            return failed;
+        }
+
+        int x;
+        int y;
+
+        try {
+            x = Integer.parseInt(arguments[0]);
+            y = Integer.parseInt(arguments[1]);
+        } catch (NumberFormatException e) {
+            System.err.println("Either '" + arguments[0] + "' or '" + arguments[1] + "' is not a number");
+            return failed;
+        }
+
+        return "" + (x + y);
+    }
+
+    private boolean containsAllWords(String query, List<String> words) {
+        for (String word : words) {
+            if (!query.contains(word)) {
+                return false;
+            }
+        }
+        return true;
     }
 }

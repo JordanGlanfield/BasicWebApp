@@ -1,2 +1,1 @@
-banter
-extra_banter
+super banter

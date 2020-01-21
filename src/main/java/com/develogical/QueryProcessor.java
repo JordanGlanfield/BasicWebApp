@@ -5,6 +5,8 @@ public class QueryProcessor {
     public String process(String rawQuery) {
         String query = rawQuery.toLowerCase();
 
+        System.out.println("Query received: '" + rawQuery + "'");
+
         if (query.contains("shakespeare")) {
             return "William Shakespeare (26 April 1564 - 23 April 1616) was an " +
                     "English poet, playwright, and actor, widely regarded as the greatest " +

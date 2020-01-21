@@ -1,8 +1,10 @@
 package com.develogical;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.BiFunction;
+import java.util.function.BinaryOperator;
 import java.util.function.Function;
 
 public class QueryProcessor {
@@ -77,7 +79,7 @@ public class QueryProcessor {
     }
 
     private String handlePlus(String query) {
-        return handleBinop(query, "plus", Integer::sum);
+        return handleBinop(query, "plus", Long::sum);
     }
 
     private boolean containsAllWords(String query, List<String> words) {
@@ -101,7 +103,7 @@ public class QueryProcessor {
         return string.replaceAll("\\s+","");
     }
 
-    private String handleBinop(String query, String keyword, BiFunction<Integer, Integer, Integer> op) {
+    private String handleBinop(String query, String keyword, BinaryOperator<Long> op) {
         String substring = stripWhitespace(query.split(":")[1].trim().substring(8));
         String[] arguments = substring.split(keyword);
 
@@ -109,24 +111,26 @@ public class QueryProcessor {
 
         System.out.println("Handling " + keyword + "!");
 
-        if (arguments.length != 2) {
-            System.err.println("Invalid number of arguments to plus: " + arguments.length);
+        if (arguments.length <= 1) {
+            System.err.println("Invalid number of arguments: " + arguments.length);
             System.err.println("Arguments are: " + arguments.toString());
             return failed;
         }
 
-        int x;
-        int y;
+        List<Long> intArgs = new ArrayList<>();
 
         try {
-            x = Integer.parseInt(arguments[0]);
-            y = Integer.parseInt(arguments[1]);
+            for (int i = 0; i < arguments.length; i++) {
+                intArgs.add(Long.parseLong(arguments[i]));
+            }
         } catch (NumberFormatException e) {
-            System.err.println("Either '" + arguments[0] + "' or '" + arguments[1] + "' is not a number");
+            System.err.println("Some of the arguments in " + arguments.toString() + " is invalid.");
             return failed;
         }
 
-        int result = op.apply(x, y);
+        long result = intArgs.stream()
+                .reduce(op)
+                .get();
 
         System.out.println("Result is " + result);
 

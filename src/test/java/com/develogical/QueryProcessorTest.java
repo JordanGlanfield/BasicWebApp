@@ -58,4 +58,9 @@ public class QueryProcessorTest {
     public void canMinusNumbers() {
         assertThat(queryProcessor.process("dsfagads: what is 100 minus 13"), equalTo("87"));
     }
+
+    @Test
+    public void canPlusManyNumbers() {
+        assertThat(queryProcessor.process("afdggfd: what is 5 plus 10 plus 9"), containsString("24"));
+    }
 }

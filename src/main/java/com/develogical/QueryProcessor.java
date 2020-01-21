@@ -32,6 +32,8 @@ public class QueryProcessor {
 
         String failed = "Couldn't do plus";
 
+        System.out.println("Handling plus!");
+
         if (arguments.length != 2) {
             System.err.println("Invalid number of arguments to plus: " + arguments.length);
             System.err.println("Arguments are: " + arguments.toString());
@@ -49,7 +51,12 @@ public class QueryProcessor {
             return failed;
         }
 
-        return "" + (x + y);
+
+        int result = x + y;
+
+        System.out.println("Result is " + result);
+
+        return "" + result;
     }
 
     private boolean containsAllWords(String query, List<String> words) {

@@ -29,4 +29,9 @@ public class QueryProcessorTest {
     public void knowsAboutBanter() {
         assertThat(queryProcessor.process("banter"), containsString("teasing"));
     }
+
+    @Test
+    public void knowsAboutTeamName() {
+        assertThat(queryProcessor.process("what is your team name", containsString("banterwagon")));
+    }
 }

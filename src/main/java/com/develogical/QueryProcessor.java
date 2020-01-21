@@ -12,7 +12,7 @@ public class QueryProcessor {
         } else if (query.contains("banter")) {
             return "the playful and friendly exchange of teasing remarks.\n" +
                     "\"there was much good-natured banter\"";
-        } else if (query.contains("what is your team name")) {
+        } else if (query.contains("what") && query.contains("is") && query.contains("your") && query.contains("team")) {
             return "Our team name is banterwagon";
         }
         return "";

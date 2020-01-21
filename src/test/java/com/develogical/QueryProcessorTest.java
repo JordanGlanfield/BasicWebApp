@@ -36,8 +36,8 @@ public class QueryProcessorTest {
     }
 
     @Test
-    public void knowsAboutTeamName() {
-        assertThat(queryProcessor.process("which of the following numbers is the largest: 90, 94, 871, 425"), containsString("871"));
+    public void canCheckLargestNumbers() {
+        assertThat(queryProcessor.process("abfddfg: which of the following numbers is the largest: 90, 94, 871, 425"), containsString("871"));
     }
     
     @Test

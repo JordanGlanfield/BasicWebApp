@@ -28,7 +28,8 @@ public class QueryProcessor {
     }
 
     private String processLargestNumber(String rawQuery) {
-        String csv = rawQuery.split(":")[1];
+        String csv = rawQuery.split(":")[2].trim();
+        csv = csv.replaceAll("\\s+","");
         String[] numberStrs = csv.split(",");
         int[] numbers = new int[numberStrs.length];
         for (int i = 0; i < numberStrs.length; i++) {

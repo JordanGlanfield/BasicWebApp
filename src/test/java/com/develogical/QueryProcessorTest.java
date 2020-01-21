@@ -44,4 +44,9 @@ public class QueryProcessorTest {
     public void canAddNumbers() {
         assertThat(queryProcessor.process("abdgrsgd: what is 5 plus 10"), containsString("15"));
     }
+
+    @Test
+    public void canMultiplyNumbers() {
+        assertThat(queryProcessor.process("sdafdasfd: what is 9 multiply 5"), containsString("45"));    
+    }
 }
